@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Interactive Web Demo</title>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #8f98a1;
+      color: #333;
+      padding: 30px;
+      margin: 0;
+    }
+
+    h1, h2, h3 {
+      color: #1f2937;
+    }
+
+    button, input {
+      font-family: inherit;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+
+    button {
+      background-color: blueviolet;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4338ca;
+      transform: scale(1.05);
+    }
+
+    input {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .section {
+      background: rgba(202, 200, 200, 0.377);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+
+    .hover-box {
+      width: 100px;
+      height: 100px;
+      background-color: lightblue;
+      transition: background-color 0.3s;
+      border-radius: 8px;
+    }
+
+    .hover-box:hover {
+      background-color: purple;
+    }
+
+    .tab {
+      display: inline-block;
+      background: #e5e7eb;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .tab:hover {
+      background: #9eaabc;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 15px;
+      background: yellowgreen;
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: opacity 0.5s ease;
+      opacity: 0;
+    }
+
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .bounce {
+      width: 100px;
+      height: 100px;
+      background: green;
+      border-radius: 12px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-20px); }
+    }
+
+    #feedback {
+      font-weight: 600;
+      margin-top: 5px;
+    }
+
+    /* Flex layout */
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .section {
+        flex: 1 1 calc(50% - 40px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>🎯 My Interactive Web Page</h1>
+
+  <div class="container">
+    <!-- Section: Events -->
+    <section class="section" aria-label="Event Handling Section">
+      <h2>🎈 Events</h2>
+      <button id="clickBtn" aria-label="Click to see alert">Click Me</button><br><br>
+      <p>Hover over the box below:</p>
+      <div class="hover-box" title="Hover over me!"></div>
+      <br><br>
+      <h3>Keypress Detection</h3>
+      <input type="text" id="inputKey" placeholder="Type here (keypress detected)">
+      <br>
+      <button id="secretBtn" title="Double-click to reveal a surprise">Double-click Me 🤫</button>
+    </section>
+
+    <!-- Section: Interactions -->
+    <section class="section" aria-label="Interactive Elements Section">
+      <h2>🎮 Interactions</h2>
+      <button id="colorBtn">Change My Color</button>
+      <br><br>
+      <img id="slideshow" src="wolf.jpg" width="30%" height="40%" alt="Slideshow Image" style="border-radius: 12px;">
+      <br><br>
+      <div class="tab" onclick="showTab('tab1')">Tab Awesome</div>
+      <div class="tab" onclick="showTab('tab2')">Tab Amazing</div>
+      <div id="tab1" class="tab-content">🌟 Welcome to Tab Awesome Content</div>
+      <div id="tab2" class="tab-content">🚀 Welcome to Tab Amazing Content</div>
+      <br><br>
+      <h3>🎨 CSS Animation</h3>
+      <p>Watch this box bounce!</p>
+      <br>
+      <br>
+      <div class="bounce" title="CSS bounce animation"></div>
+    </section>
+
+    <!-- Section: Form Validation -->
+    <section class="section" aria-label="Form Section">
+      <h2>📋 Form Validation</h2>
+      <form id="myForm" novalidate>
+        <input type="email" id="email" placeholder="Enter your email" required><br>
+        <input type="password" id="password" placeholder="Min 8 characters" required><br>
+        <button type="submit">Submit</button>
+      </form>
+      <h3>Real-time Password Feedback</h3>
+      <input type="password" id="livePass" placeholder="Type password">
+      <p id="feedback"></p>
+    </section>
+  </div>
+
+  <script>
+    // Button click
+    document.getElementById("clickBtn").addEventListener("click", function() {
+      alert("🎉 You clicked the button!");
+    });
+
+    // Keypress detection
+    document.getElementById("inputKey").addEventListener("keypress", function(event) {
+      console.log("Key pressed:", event.key);
+    });
+
+    // Double-click secret
+    document.getElementById("secretBtn").addEventListener("dblclick", function() {
+      alert("✨ You discovered the secret!");
+    });
+
+    // Button color change
+    document.getElementById("colorBtn").addEventListener("click", function() {
+      this.style.backgroundColor = "#10b981"; // Tailwind-style emerald green
+      this.innerText = "Changed!";
+    });
+
+    // Slideshow logic
+    const images = [
+      "wolf.jpg",
+      "wolf2.jpg",
+      "wolf3.jpg",
+    ];
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % images.length;
+      document.getElementById("slideshow").src = images[i];
+    }, 2500);
+
+    // Tabs
+    function showTab(id) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    // Form validation
+    document.getElementById("myForm").addEventListener("submit", function(e) {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (!email.includes("@")) {
+        alert("❗ Please enter a valid email.");
+        e.preventDefault();
+      } else if (password.length < 8) {
+        alert("⚠️ Password must be at least 8 characters.");
+        e.preventDefault();
+      }
+    });
+
+    // Real-time feedback
+    document.getElementById("livePass").addEventListener("input", function() {
+      const msg = this.value.length >= 8 ? "✅ Strong password" : "❌ Too short";
+      document.getElementById("feedback").innerText = msg;
+    });
+  </script>
+</body>
+</html>
